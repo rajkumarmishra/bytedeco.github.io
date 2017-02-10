@@ -6,3 +6,43 @@
 #   content: |
 #     Comments are awesome; they can be written in [Markdown](http://en.wikipedia.org/wiki/Markdown)!
 
+-name: Raj Kummar
+ url :https://github.com/rajkumarmishra
+ date: 10/02/2017
+ 
+ How can i save the grabbed frame as image(jpg) file  in a folder, sorry code for saving the file is faulty but i don't know the next step; 
+ 
+  FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(cVideoFilePath+ "/" + "VID_20170209_133918.mp4");
+        try {
+
+            OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
+            grabber.start();
+
+            opencv_core.IplImage frame = converter.convert(grabber.grab());
+
+            Frame frame1 = grabber.grab();
+            Bitmap bitmap = convertToBitmap.convert(frame1);
+            FileOutputStream outputStream = null;
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmddhhss");
+            String date = simpleDateFormat.format(new Date());
+            photofile = "cam_demo" + date + ".jpg";
+            File picfile = new File(cVideoFilePath);
+            if (!picfile.exists()) {
+                try {
+                    picfile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+
+                outputStream = new FileOutputStream(picfile);
+                outputStream.write(bitmap);
+                outputStream.close();
+            } catch (IOException ex) {
+            } 
+
+        } catch (FrameGrabber.Exception e) {
+            e.printStackTrace();
+        }
